@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Memes by Lu</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"
+        integrity="sha512-01CJ9/g7e8cUmY0DFTMcUw/ikS799FHiOA0eyHsUWfOetgbx/t6oV4otQ5zXKQyIrQGTHSmRVPIgrgLcZi/WMA=="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"
+        integrity="sha512-csNcFYJniKjJxRWRV1R7fvnXrycHP6qDR21mgz1ZP55xY5d+aHLfo9/FcGDQLfn2IfngbAHd8LdfsagcCqgTcQ=="
+        crossorigin="anonymous"></script>
+</head>
+
+<body class="dark-mode" id="body">
+    <header class="contenedor-encabezado">
+        <h1 class="titulo-principal">Generador de Memes</h1>
+        <nav>
+            <button class="button button-menu" id="boton-menu-img">
+                <img src="./images/imagen-icono.png" alt="icono imagen" class="icono-mode">
+                Imagen
+            </button>
+            <button class="button button-menu" id="boton-menu-txt">
+                <img src="./images/texto-icono.png" alt="icono imagen" class="icono-mode">
+                Texto
+            </button>
+            <button id="dark-mode" class="hidden button button-menu">
+                <img src="./images/dark-mode.png" alt="icono dark-mode" class="icono-mode">
+                Modo oscuro
+            </button>
+            <button id="light-mode" class="button button-menu">
+                <img src="./images/light-mode.png" alt="icono light-mode" class="icono-mode">
+                Modo claro
+            </button>
+        </nav>
+    </header>
+    <main class="container-web">
+        <!-- CANVAS -->
+        <div class="contenedor-meme" id="canvas-meme">
+
+            <section class="contenedor-texto" id="contenedor-texto-top">
+                <p class="texto-meme" id="texto-meme-top">TOP TEXT</p>
+            </section>
+
+            <section class="contenedor-imagen" id="contenedor-imagen-meme">
+                <!-- <img src="" alt="Imagen del Meme" id="imagen-meme" class="hidden imagen-meme"> 
+                eliminar la etiqueta imagen y dejar directamente en background en section 
+                -->
+            </section>
+
+            <section class="contenedor-texto" id="contenedor-texto-bottom">
+                <p class="texto-meme" id="texto-meme-bottom">BOTTOM TEXT</p>
+            </section>
+
+        </div>
+
+        <!-- DESCARGAR MEME -->
+        <button class="button-descarga button" id="button-descarga">
+            <img src="./images/icons8-download-white.png" alt="icon descargas" class="icon-descarga"> Descargar meme
+        </button>
+
+    </main>
+
+    <!-- desplegable al clickear Imagen -->
+    <aside class="contenedor-filtros-img" id="contenedor-filtros-img">
+
+        <button class="button boton-cerrar" id="boton-cerrar-img">
+            x
+        </button>
+
+        <h5 class="filtros-title">IMAGEN</h5>
+        <div>
+            <label for="url" class="label-titulo"> URL
+                <input type="text" name="url" id="url" class="textos-en-cajita">
+            </label>
+        </div>
+        <div>
+            <h5 class="filtros-title">FONDO</h5>
+            <div class="contenedor-fondo">
+                <div class="contenedor-fondo-color cajita-input-color">
+                    <input type="color" name="color" id="input-color-img-fondo" class="input-color" value="#FAFAFA">
+                    <span id="input-color-img-fondo-hex">#FAFAFA</span>
+                </div>
+                <select name="mezcla-fondo" id="mezcla-fondo" class="mezcla-fondo textos-en-cajita">
+                    <option value="none">Ninguno</option>
+                    <option value="lighten">Aclarar</option>
+                    <option value="darken">Oscurecer</option>
+                    <option value="difference">Diferencia</option>
+                    <option value="luminosity">Luminosidad</option>
+                    <option value="multiply">Multiplicar</option>
+                </select>
+            </div>
+        </div>
+        <div>
+            <h5 class="filtros-title">FILTROS</h5>
+            <label for="filtro-brightness" class="label-titulo">BRILLO
+                <input type="range" name="filtro-brightness" id="filtro-brightness" min="0" max="1" value="1"
+                    step="0.1">
+            </label>
+            <label for="filtro-opacity" class="label-titulo">OPACIDAD
+                <input type="range" name="filtro-opacity" id="filtro-opacity" min="0" max="1" value="1" step="0.1">
+            </label>
+            <label for="filtro-contrast" class="label-titulo">CONTRASTE
+                <input type="range" name="filtro-contrast" id="filtro-contrast" min="100" max="1000" value="100">
+            </label>
+            <label for="filtro-blur" class="label-titulo">DESENFOQUE
+                <input type="range" name="filtro-blur" id="filtro-blur" min="0" max="10" value="0" step="0.1">
+            </label>
+            <label for="filtro-grayscale" class="label-titulo">ESCALA DE GRISES
+                <input type="range" name="filtro-grayscale" id="filtro-grayscale" min="0" max="100" value="0">
+            </label>
+            <label for="filtro-sepia" class="label-titulo">SEPIA
+                <input type="range" name="filtro-sepia" id="filtro-sepia" min="0" max="100" value="0">
+            </label>
+            <label for="filtro-hue" class="label-titulo">HUE
+                <input type="range" name="filtro-hue" id="filtro-hue" min="0" max="360" value="0">
+            </label>
+            <label for="filtro-saturation" class="label-titulo">SATURADO
+                <input type="range" name="filtro-saturation" id="filtro-saturation" min="100" max="1000" value="100"
+                    step="10">
+            </label>
+            <label for="filtro-invert" class="label-titulo">NEGATIVO
+                <input type="range" name="filtro-invert" id="filtro-invert" min="0" max="1" value="0" step="0.1">
+            </label>
+            <button class="button button-reestablecer">Reestablecer filtros</button>
+        </div>
+    </aside>
+
+    <!-- desplegable al clickear Texto -->
+    <aside class="contenedor-filtros-txt hidden" id="contenedor-filtros-txt">
+
+        <button class="button boton-cerrar" id="boton-cerrar-txt">
+            x
+        </button>
+
+        <h5 class="filtros-title">TEXTO</h5>
+        <div class="contenedor-txt-top-bottom">
+            <label for="txt-top" class="label-titulo">SUPERIOR
+                <textarea name="txt-top" id="txt-top" rows="1" cols="30" class="textos-en-cajita"></textarea>
+            </label>
+            <label for="sin-top-txt" class="label-sin-txt">
+                <input type="checkbox" name="sin-top-txt" id="sin-top-txt"> Sin texto superior
+            </label>
+
+        </div>
+        <div>
+            <label for="txt-top" class="label-titulo"> INFERIOR
+                <textarea name="txt-bottom" id="txt-bottom" rows="1" cols="30" class="textos-en-cajita"></textarea>
+            </label>
+            <label for="sin-bottom-txt" class="label-sin-txt">
+                <input type="checkbox" name="sin-bottom-txt" id="sin-bottom-txt"> Sin texto superior
+            </label>
+        </div>
+        <div>
+            <label for="txt-fuente" class="label-titulo"> FUENTE
+                <select name="txt-fuente" id="txt-fuente" class="selector-tipo-fuente textos-en-cajita">
+                    <option value="Arial">Arial</option>
+                    <option value="Arial Black">Arial Black</option>
+                    <option value="American Typewriter">American Typewriter</option>
+                    <option value="Andale Mono">Andale Mono</option>
+                    <option value="Helvetica">Helvetica</option>
+                    <option value="Impact">Impact</option>
+                    <option value="Verdana">Verdana</option>
+                    <option value="Times New Roman">Times New Roman</option>
+                </select>
+            </label>
+
+            <div class="contenedor-txt-align">
+                <input type="number" name="txt-size" id="txt-size" value="32" class="textos-en-cajita">
+                <button class="button-align" id="txt-align-left" data-align="left">
+                    <img src="./images/align-left.png" class="button-align-img" alt="icono alineacion a la izquierda"
+                        class="txt-align">
+                </button>
+                <button class="button-align" id="txt-align-center" data-align="center">
+                    <img src="./images/align-center.png" class="button-align-img" alt="icono alineacion al centro"
+                        class="txt-align">
+                </button>
+                <button class="button-align" id="txt-align-right" data-align="right">
+                    <img src="./images/align-right.png" class="button-align-img" alt="icono alineacion a la derecha"
+                        class="txt-align">
+                </button>
+            </div>
+        </div>
+        <div class="contenedor-inputs-color-fondo">
+            <div class="contenedor-inputs-color">
+                <h5 class="titulo-color-fondo">COLOR</h5>
+                <div class="contenedor-color-txt cajita-input-color">
+                    <label for="color-txt">
+                        <input type="color" class="input-color" id="input-color-txt-color" value="#000000">
+                    </label>
+                    <span class="color-txt-hex" id="input-color-txt-color-hex">#000000</span>
+                </div>
+            </div>
+            <div class="contenedor-inputs-fondo">
+                <h5 class="titulo-color-fondo">FONDO</h5>
+                <div class="contenedor-color-txt cajita-input-color">
+                    <label for="color-txt">
+                        <input type="color" class="input-color" id="input-color-txt-fondo" value="#FFFFFF">
+                    </label>
+                    <span class="color-txt-hex" id="input-color-txt-fondo-hex">#FFFFFF</span>
+                </div>
+            </div>
+        </div>
+        <label for="fondo-transparente" class="label-sin-txt">
+            <input type="checkbox" name="fondo-transparente" id="fondo-transparente">
+            Fondo transparente
+        </label>
+        <div class="contenedor-contorno">
+            <label for="" class="label-titulo">CONTORNO</label>
+            <button class="button button-contorno" id="contorno-none">Ninguno</button>
+            <button class="button button-contorno" id="contorno-light">Claro</button>
+            <button class="button button-contorno" id="contorno-dark">Oscuro</button>
+        </div>
+        <label for="espaciado" class="label-titulo">
+            ESPACIADO
+            <input type="number" name="espaciado" id="espaciado" class="textos-en-cajita" value="18">
+        </label>
+        <label for="interlineado" class="label-titulo">
+            INTERLINEADO
+            <select name="interlineado" id="interlineado" class="textos-en-cajita">
+                <option value="0.8">0.8</option>
+                <option value="1">1</option>
+                <option value="1.2">1.2</option>
+                <option value="1.5">1.5</option>
+                <option value="2">2</option>
+                <option value="2.5">2.5</option>
+            </select>
+        </label>
+    </aside>
+
+    <footer class="hidden">
+        <a target="_blank" href="https://icons8.com/icon/366/download">Download</a> icon by <a target="_blank"
+            href="https://icons8.com">Icons8</a>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+
+</html>
