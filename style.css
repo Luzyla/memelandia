@@ -50,6 +50,7 @@ body {
 .titulo-principal {
     color: var(--color-4);
     text-shadow: 1px 1px 2px var(--color-8);
+    font-size: 3rem;
 }
 
 .button {
