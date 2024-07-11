@@ -105,13 +105,19 @@ darkMode.addEventListener('click', darkModeOn)
 
 /* URL */
 function addImageMeme () {
-    imagenMeme.src = imgUrl.value;
-    contenedorImgMeme.src = imgUrl.value
-    if (imgUrl.value) {
+    
+    //console.log(imagenMeme)
+    //imagenMeme.src = imgUrl.value;
+    //console.log(imagenMeme.src)
+    //contenedorImgMeme.src = imgUrl.value;
+
+    contenedorImgMeme.style.backgroundImage = `url(${imgUrl.value})`
+
+    /* if (imgUrl.value) {
         imagenMeme.classList.remove('hidden');
     } else {
         imagenMeme.classList.add('hidden');
-    }
+    } */
     //alternativa: imagenMeme.setAttribute('src', urlImg.value)
    //    console.log("src: ", imagenMeme.src)
 }
@@ -154,6 +160,81 @@ console.log(colorHex)
 }
 colorImgFondo.addEventListener('input', modifyColor);
 seleccionarEfecto.addEventListener('change', modifyColor);
+
+/* FILTROS IMAGEN */
+const filtroBrillo = document.getElementById('filtro-brightness');
+const filtroOpacidad = document.getElementById('filtro-opacity');
+const filtroContraste = document.getElementById('filtro-contrast');
+const filtroDesenfoque = document.getElementById('filtro-blur');
+const filtroGrises = document.getElementById('filtro-grayscale');
+const filtroSepia = document.getElementById('filtro-sepia');
+const filtroHue = document.getElementById('filtro-hue');
+const filtroSaturado = document.getElementById('filtro-saturation');
+const filtroNegativo = document.getElementById('filtro-invert');
+
+function aplicarFiltros() {
+    const brillo = Number(filtroBrillo.value);
+    const opacidad = Number(filtroOpacidad.value);
+    const contraste = Number(filtroContraste.value);
+    const desenfoque = Number(filtroDesenfoque.value);
+    const grises = Number(filtroGrises.value);
+    const sepia = Number(filtroSepia.value);
+    const hue = Number(filtroHue.value);
+    const saturado = Number(filtroSaturado.value);
+    const negativo = Number(filtroNegativo.value);
+
+    contenedorImgMeme.style.filter = `
+    brightness(${brillo})
+    opacity(${opacidad})
+    contrast(${contraste}%)
+    blur(${desenfoque}px)
+    grayscale(${grises}%)
+    sepia(${sepia}%)
+    hue-rotate(${hue}deg)
+    saturate(${saturado}%)
+    invert(${negativo})`;
+
+    console.log(filtroBrillo.value)
+    console.log(filtroDesenfoque.value)
+}
+filtroBrillo.addEventListener('input', aplicarFiltros);
+filtroOpacidad.addEventListener('input', aplicarFiltros);
+filtroContraste.addEventListener('input', aplicarFiltros);
+filtroDesenfoque.addEventListener('input', aplicarFiltros);
+filtroGrises.addEventListener('input', aplicarFiltros);
+filtroSepia.addEventListener('input', aplicarFiltros);
+filtroHue.addEventListener('input', aplicarFiltros);
+filtroSaturado.addEventListener('input', aplicarFiltros);
+filtroNegativo.addEventListener('input', aplicarFiltros);
+
+/* reestablecer */
+const resetFiltros = document.getElementById('reestablecer');
+
+function resetearFiltros() {
+    filtroBrillo.value = 1;
+    filtroOpacidad.value = 1;
+    filtroContraste.value = 100;
+    filtroDesenfoque.value = 0;
+    filtroGrises.value = 0;
+    filtroSepia.value = 0;
+    filtroHue.value = 0;
+    filtroSaturado.value = 100;
+    filtroNegativo.value = 0;
+    
+    contenedorImgMeme.style.filter = `
+    brightness(${filtroBrillo.value})
+    opacity(${1})
+    contrast(${100}%)
+    blur(${0}px)
+    grayscale(${0}%)
+    sepia(${0}%)
+    hue-rotate(${0}deg)
+    saturate(${100}%)
+    invert(${0})`;
+    
+console.log(filtroBrillo.value);
+}
+resetFiltros.addEventListener('click', resetearFiltros);
 
 /* TEXTO MEME */
 function modifyText (e) {
