@@ -6,7 +6,8 @@ const buttonDescarga = document.getElementById('button-descarga');
 const contenedorMeme = document.getElementById('canvas-meme');
 
 const imgUrl = document.getElementById('url');
-const imagenMeme = document.getElementById('imagen-meme');
+//const imagenMeme = document.getElementById('imagen-meme');
+const contenedorImgMeme = document.getElementById('contenedor-imagen-meme');
 
 const botonCerrarImg = document.getElementById('boton-cerrar-img');
 const botonMenuImg = document.getElementById('boton-menu-img');
@@ -39,7 +40,6 @@ const contenedorTxtBottom = document.getElementById('contenedor-texto-bottom');
 
 const checkboxFondoTransparente = document.getElementById('fondo-transparente');
 const canvasMeme = document.getElementById('canvas-meme');
-const contenedorImgMeme = document.getElementById('contenedor-imagen-meme');
 
 const selectorFuente = document.getElementById('txt-fuente');
 const txtMemeTop = document.getElementById('texto-meme-top');
@@ -50,7 +50,6 @@ const inputFontSize = document.getElementById('txt-size');
 const alignLeft = document.getElementById('txt-align-left');
 const alignCenter = document.getElementById('txt-align-center');
 const alignRight = document.getElementById('txt-align-right');
-
 
 /* BOTON Y MENU IMAGEN */
 function openImgMenu () {
@@ -105,26 +104,10 @@ darkMode.addEventListener('click', darkModeOn)
 
 /* URL */
 function addImageMeme () {
-    
-    //console.log(imagenMeme)
-    //imagenMeme.src = imgUrl.value;
-    //console.log(imagenMeme.src)
-    //contenedorImgMeme.src = imgUrl.value;
-
     contenedorImgMeme.style.backgroundImage = `url(${imgUrl.value})`
-
-    /* if (imgUrl.value) {
-        imagenMeme.classList.remove('hidden');
-    } else {
-        imagenMeme.classList.add('hidden');
-    } */
-    //alternativa: imagenMeme.setAttribute('src', urlImg.value)
-   //    console.log("src: ", imagenMeme.src)
+    contenedorImgMeme.classList.add('meme-alineacion', 'fondo-transparente'); 
 }
 imgUrl.addEventListener('input', addImageMeme)
-
-//imgUrl es el INPUT
-//imagenMeme es la IMAGEN
 
 /* INPUT COLOR */
 function modifyTxtColor (e) {
@@ -141,8 +124,6 @@ function modifyTxtColor (e) {
 }
 colorTxtColor.addEventListener('input', modifyTxtColor);
 colorTxtFondo.addEventListener('input', modifyTxtColor);
-/* https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/%D0%A4%D0%BE%D1%82%D0%BE_%D0%BA%D1%83%D0%BD%D0%BE%D0%B2.jpg/640px-%D0%A4%D0%BE%D1%82%D0%BE_%D0%BA%D1%83%D0%BD%D0%BE%D0%B2.jpg
- */
 
 /* IMAGEN Y COLOR FONDO */
 const seleccionarEfecto = document.getElementById('mezcla-fondo')
@@ -156,7 +137,6 @@ console.log(colorHex)
     contenedorImgMeme.style.backgroundBlendMode = efecto;
     contenedorImgMeme.style.backgroundImage = `url(${imgUrl.value})`;
     contenedorImgMeme.style.backgroundColor = colorHex;
-    imagenMeme.classList.add('hidden');
 }
 colorImgFondo.addEventListener('input', modifyColor);
 seleccionarEfecto.addEventListener('change', modifyColor);
@@ -259,26 +239,32 @@ sinTxtTop.addEventListener('change', hiddeTextBanner)
 sinTxtBottom.addEventListener('change', hiddeTextBanner)
 
 /* FONDO TRANSPARENTE */
-// const  = document.getElementById('');
 function fondoTransparente () {
     if(checkboxFondoTransparente.checked) {
-        canvasMeme.style.backgroundColor = 'transparent';
+        console.log("contenedor IMG MEME", contenedorImgMeme)
+        contenedorImgMeme.style.removeProperty('background-image');
+        contenedorImgMeme.classList.add('fondo-transparente'); 
+    
+        canvasMeme.classList.add('fondo-transparente', 'meme-alineacion');
         canvasMeme.style.backgroundImage = `url(${imgUrl.value})`;
-        imagenMeme.classList.add('hidden');
-        contenedorImgMeme.style.backgroundColor = 'transparent';
-        contenedorTxtTop.style.backgroundColor = 'transparent';
-        contenedorTxtBottom.style.backgroundColor = 'transparent';
+    
+        contenedorTxtTop.classList.add('fondo-transparente'); 
+        contenedorTxtBottom.classList.add('fondo-transparente'); 
+   
+        console.log(contenedorTxtTop)
     } else {
         canvasMeme.style.removeProperty('background-image');
-        imagenMeme.src = imgUrl.value
-        if (imgUrl.value) {
-            imagenMeme.classList.remove('hidden');
-        }
-        contenedorImgMeme.style.removeProperty('background-color');
-        contenedorTxtTop.style.removeProperty('background-color');
-        contenedorTxtBottom.style.removeProperty('background-color');
+        contenedorImgMeme.style.backgroundImage = `url(${imgUrl.value})`; 
+        contenedorImgMeme.classList.remove('fondo-transparente'); 
+        contenedorImgMeme.classList.add('meme-alineacion'); 
+
+        contenedorTxtTop.classList.remove('fondo-transparente'); 
+        contenedorTxtBottom.classList.remove('fondo-transparente'); 
     }
-}
+        /* contenedorImgMeme.style.removeProperty('background-color');
+        contenedorTxtTop.style.removeProperty('background-color');
+        contenedorTxtBottom.style.removeProperty('background-color'); */
+    }
 checkboxFondoTransparente.addEventListener('change', fondoTransparente);
 
 /* FONT FAMILY */
@@ -338,8 +324,9 @@ const espaciado = document.getElementById('espaciado');
 
 function modifyLetterSpacing(e) {
     let letterSpacing = e.target.value
-    txtMemeTop.style.letterSpacing = letterSpacing
-    txtMemeBottom.style.letterSpacing = letterSpacing
+    console.log("ESPACIADO", letterSpacing)
+    txtTopMeme.style.padding = letterSpacing
+    txtBottomMeme.style.padding = letterSpacing
 }
 espaciado.addEventListener('input', modifyLetterSpacing);
 
@@ -354,23 +341,6 @@ function modifyLineHeight(e) {
 interlineado.addEventListener('input', modifyLineHeight);
 
 
-
-
-/* URL IMAGEN 
+/* URL IMAGEN TEST
 https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/%D0%A4%D0%BE%D1%82%D0%BE_%D0%BA%D1%83%D0%BD%D0%BE%D0%B2.jpg/640px-%D0%A4%D0%BE%D1%82%D0%BE_%D0%BA%D1%83%D0%BD%D0%BE%D0%B2.jpg
 */
-
-// const  = document.getElementById('');
-/* const actualizarImagen = (evento) => {
-    
-    if (evento.target.value.length !== 0) {
-      $('image-meme').style.backgroundImage = `url("${evento.target.value}")`
-    }
-  } */
-
-    /* input_number.addEventListener('input', function(e) {
-        variable.style.fontSize = `${e.target.value}px`
-        //text_superior.font-size.value;
-    }) */
-
-     
