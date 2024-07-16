@@ -16,13 +16,13 @@
 
 .light-mode {
     --color-1: #FF0A54;
-    --color-2: #FF477E;
-    --color-3: #FF5C8A;
-    --color-4: #FF7096;
-    --color-5: #FF85A1;
-    --color-6: #FF99AC;
-    --color-7: #FBB1BD;
-    --color-8: #F9BEC7;
+    --color-2: #F9BEC7;
+    --color-3: #FF85A1;
+    --color-4: #FF99AC;
+    --color-5: #FF5C8A;
+    --color-6: #FBB1BD;
+    --color-7: #FF477E;
+    --color-8: #FF7096;
     --color-9: #FAE0E4;
 }
 
@@ -48,15 +48,15 @@ body {
 }
 
 .titulo-principal {
-    color: var(--color-4);
-    text-shadow: 1px 1px 2px var(--color-8);
+    color: var(--color-7);
+    text-shadow: 2px 2px 4px var(--color-5);
     font-size: 3rem;
 }
 
 .button {
     margin: 1rem;
     background-color: var(--color-4);
-    color: var(--color-8);
+    color: var(--color-7);
     border: 2px solid var(--color-8);
     border-radius: 8px;
     padding: 0.25rem;
